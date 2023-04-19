@@ -56,13 +56,18 @@ export default Vue.extend({
   methods: {
     addTodoItem(): void {
       const value = this.todoText;
-      const todo: Todo = {
-        title: value,
-        done: false,
-      };
-      this.todoItems.push(todo);
-      storage.save(this.todoItems);
-      this.initTodoText();
+
+      if (value !== '') {
+        const todo: Todo = {
+          title: value,
+          done: false,
+        };
+
+        this.todoItems.push(todo);
+        storage.save(this.todoItems);
+        this.initTodoText();
+      }
+      return;
     },
 
     initTodoText(): void {
@@ -82,7 +87,6 @@ export default Vue.extend({
     },
 
     removeTodos(index: number): void {
-      console.log('remove ' + index);
       this.todoItems.splice(index, 1);
       storage.save(this.todoItems);
     },
